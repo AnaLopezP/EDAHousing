@@ -1,3 +1,4 @@
+from inspect import indentsize
 import pandas as pd
 def atributos_dataframe(dataframe):
     print("Estas son las filas del dataframe:")
@@ -19,6 +20,8 @@ print("En la lista de las columnas podemos observar que todos los nombres estan 
 print("Para hacer el analisis estadistico mas facilmente, traduciremos estos nombres al español:")
 print('\n')
 traducido =  {'Avg. Area Income': 'Ganancia Media','Avg. Area House Age':'Edad Casa Media', 'Avg. Area Number of Rooms':'Num Habitaciones Medio', 'Avg. Area Number of Bedrooms': 'Num HabitCama Medio', 'Area Population': 'Poblacion en Area', 'Price':'Precio', 'Address':'Direccion'}
-print(traduccion(f, traducido))
+f2 = traduccion(f, traducido)
 print("\n")
-print("Una vez hecho esto, vamos a visualizar mediante graficas las variables")
+
+print("voy a exportar el dataframe a un excel para poder observar todos los datos")
+f2.to_excel("Housing_traducido.xlsx")
