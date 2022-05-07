@@ -44,8 +44,8 @@ print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
 
 print("--------------------------- DISTRIBUCION DE PRECIOS ------------------------")
 print("Hemos separado por rangos el precio para ver las frecuencias y su distribucion.")
-bins = range(20000, 120000, 5000)
-f2["Rango Precios"] = pd.cut(f2["Precio"], bins = 20)
+bins = range(200000, 2500000, 100000)
+f2["Rango Precios"] = pd.cut(f2["Precio"], bins)
 a = f2.groupby("Rango Precios").agg(frecuencia = ("Precio", "count"))
 print(a)
 ejex = f2["Precio"]
