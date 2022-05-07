@@ -31,8 +31,9 @@ f2.to_excel("Housing_traducido.xlsx")
 print("Voy a hacer distintas graficas con las variables iniciales")
 print("1) histograma de la ganancia")
 fig = plt.figure()
-ganancia_media = f2["Ganancia Media"]
-frecuencias_ganancias = f2.value_counts()
-plt.hist(ganancia_media, frecuencias_ganancias, color = "b")
+ejex = [0, 10000, 20000, 300000, 400000, 500000, 600000, 700000]
+ejey = [0, 50, 100, 150, 200, 250, 300, 350, 400]
+
+plt.hist(ejex, ejey, color = "b")
 plt.savefig("Histograma Ganancias.jpg")
-plt.show
+plt.show()
