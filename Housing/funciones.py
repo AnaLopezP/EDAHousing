@@ -33,6 +33,7 @@ print("En estos datos podemos destacar dos cosas:")
 print("1) las medias, en general, se acercan mucho al percentil 50, por lo que podemos suponer que la mayoria de los datos son cercanos a la media. Comprobare esto con las frecuencias")
 print("2) Con el maximo y el minimo se observa que hay algunos valores aberrantes, sobre todo en el numero de habitaciones, en la ganancia y en la antigüedad. Estos valores no los tendremos en cuenta para futuros analisis.")
 print('\n')
+
 print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
 print("Hemos separado por rangos el salario para ver las frecuencias y su distribucion.")
 bins = range(20000, 120000, 5000)
@@ -64,7 +65,6 @@ print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
 print("Esto quiere decir que no hay una diferencia de precios notable. Es decir, no hay casas muy baratas y muy caras, sino que la mayoria tienden a la media.")
 print("Esto tiene sentido si lo juntamos con la distribucion de salario, ya que la mayoria de gente ser de clase media, y los precios tienen que ajustarse a las personas, los precios serán tambien medios.")
 print('\n')
-
 
 print("----------------------------PRECIOS POR DISTRITO----------------------")
 print("Voy a clasificar las calles por distrito, usando el codigo inicial de cada una.")
