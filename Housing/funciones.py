@@ -25,11 +25,13 @@ traducido =  {'Avg. Area Income': 'Ganancia Media','Avg. Area House Age':'Edad C
 f2 = traduccion(f, traducido)
 f3 = traduccion(f, traducido)
 print("\n")
-'''print("voy a exportar el dataframe a un excel. De esta manera vere mas facil e intuitivamente la tabla.")
-f2.to_excel("Housing_traducido.xlsx")'''
+
 
 print("Primero voy a hacer una descripcion general de los datos")
 print(f2.describe())
+print("En estos datos podemos destacar dos cosas:")
+print("1) las medias, en general, se acercan mucho al percentil 50, por lo que podemos suponer que la mayoria de los datos son cercanos a la media. Comprobare esto con las frecuencias")
+print("2) Con el maximo y el minimo se observa que hay algunos valores aberrantes, sobre todo en el numero de habitaciones, en la ganancia y en la antigüedad. Estos valores no los tendremos en cuenta para futuros analisis.")
 print('\n')
 print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
 print("Hemos separado por rangos el salario para ver las frecuencias y su distribucion.")
@@ -40,9 +42,11 @@ print(a)
 ejex = f2["Ganancia Media"]
 ejey = bins
 plt.hist(ejex, ejey)
+plt.show()
 plt.savefig("distribucion_ganancias.png")
 print("Puede ver la grafica en 'distribucion_ganancias.png'")
 print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
+print("Esto quiere decir, tal y como suponiamos, que la mayoria de las ganancias son cercanas a la media, lo que conlleva que la mayoria de gente es de clase media.")
 
 print("--------------------------- DISTRIBUCION DE PRECIOS ------------------------")
 print("Hemos separado por rangos el precio para ver las frecuencias y su distribucion.")
@@ -57,6 +61,7 @@ plt.savefig("distribucion_precios.png")
 print("Puede ver la grafcia en 'distribucion_precios.png'")
 print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
 print("Esto quiere decir que no hay una diferencia de precios notable. Es decir, no hay casas muy baratas y muy caras, sino que la mayoria tienden a la media.")
+print("Esto tiene sentido si lo juntamos con la distribucion de salario, ya que la mayoria de gente ser de clase media, y los precios tienen que ajustarse a las personas, los precios serán tambien medios.")
 print('\n')
 
 
@@ -87,18 +92,19 @@ plt.bar(d["Codigo"], d["media_precio"])
 plt.show()
 print("Con esta grafica he intentado averiguar si el precio de la casa varia por zonas. Es decir, si hay un barrio mas caro que otro, etc.")
 print("Sin embargo, se observa que las viviendas tienden al mismo precio, variando poco, y no hay una diferencia clara por distritos.")
+print("Esto quiere decir que no hay un aglomeramiento de distintas clases sociales por barrio, sino que estan todos mezclados, siendo la mayoría de clase media.")
 
 
 print("-----------------------------DISTRIBUCION EDAD DE LA CASA------------------------")
+print("Con esto queremos ver si el numero de habitaciones, el precio, y la poblacion dependen la antiguedad de la casa.")
 bins = [2, 4, 6, 8, 10]
 nombres = ['2-4', '4-6', '6-8', '8-10']
 temp = f2
 df1 = temp['Edad Casa Media'] = pd.cut(temp['Edad Casa Media'], bins, labels = nombres)
-print(df1)
 df2 = f2.groupby('Edad Casa Media').mean()
-df3= f2.groupby('Edad Casa Media').count()
 print(df2)
-print(df3)
+print("Lo mas destacable es que hay menos poblacion en las areas con casas mas antiguas. El resto de valores no varian apenas, por lo que no podemos establecer una relacion.")
+
 
 print("--------------------MATRIZ DE CORRELACIONES--------------------")
 print("Con la matriz de correlaciones podemos ver si las variables elegidas depender una de la otra")
