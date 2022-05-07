@@ -23,14 +23,15 @@ print("Para hacer el analisis estadistico mas facilmente, traduciremos estos nom
 print('\n')
 traducido =  {'Avg. Area Income': 'Ganancia Media','Avg. Area House Age':'Edad Casa Media', 'Avg. Area Number of Rooms':'Num Habitaciones Medio', 'Avg. Area Number of Bedrooms': 'Num HabitCama Medio', 'Area Population': 'Poblacion en Area', 'Price':'Precio', 'Address':'Direccion'}
 f2 = traduccion(f, traducido)
+f3 = traduccion(f, traducido)
 print("\n")
 '''print("voy a exportar el dataframe a un excel. De esta manera vere mas facil e intuitivamente la tabla.")
 f2.to_excel("Housing_traducido.xlsx")'''
 
 print("Primero voy a hacer una descripcion general de los datos")
 print(f2.describe())
-
-'''print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
+print('\n')
+print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
 print("Hemos separado por rangos el salario para ver las frecuencias y su distribucion.")
 bins = range(20000, 120000, 5000)
 f2["Ganancias Rangos"] = pd.cut(f2["Ganancia Media"], bins)
@@ -39,7 +40,8 @@ print(a)
 ejex = f2["Ganancia Media"]
 ejey = bins
 plt.hist(ejex, ejey)
-plt.show()
+plt.savefig("distribucion_ganancias.png")
+print("Puede ver la grafica en 'distribucion_ganancias.png'")
 print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
 
 print("--------------------------- DISTRIBUCION DE PRECIOS ------------------------")
@@ -51,10 +53,15 @@ print(a)
 ejex = f2["Precio"]
 ejey = bins
 plt.hist(ejex, ejey)
-plt.show()
+plt.savefig("distribucion_precios.png")
+print("Puede ver la grafcia en 'distribucion_precios.png'")
 print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
+print("Esto quiere decir que no hay una diferencia de precios notable. Es decir, no hay casas muy baratas y muy caras, sino que la mayoria tienden a la media.")
 print('\n')
-print("Voy a clasificar las calles por distrito, usando el codigo inicial de cada una.")'''
+
+
+print("----------------------------PRECIOS POR DISTRITO----------------------")
+print("Voy a clasificar las calles por distrito, usando el codigo inicial de cada una.")
 codigos = []
 for i in range(len(f2.index)):
     cad = str(f2.iloc[i, 6])
@@ -62,13 +69,48 @@ for i in range(len(f2.index)):
     codigos.append(str(cad)[0:2])
     
 f2["Codigo"] = codigos
-print(f2.head())
-print(f2.tail())
     
 b = f2.groupby("Codigo").agg(frecuencia = ("Codigo", "count"))
 print(b)
 
-'''c = f2.groupby("Codigo").get_group("00")
-print(c)'''
 d = f2.groupby("Codigo").agg(media_precio = ("Precio", "mean"))
+serie = []
+
+for i in range(len(d.index)):
+    serie.append(i)
+
+d.insert(loc = 0,column = "Codigo", value = serie)
+
 print(d)
+
+plt.bar(d["Codigo"], d["media_precio"])
+plt.show()
+print("Con esta grafica he intentado averiguar si el precio de la casa varia por zonas. Es decir, si hay un barrio mas caro que otro, etc.")
+print("Sin embargo, se observa que las viviendas tienden al mismo precio, variando poco, y no hay una diferencia clara por distritos.")
+
+
+print("-----------------------------DISTRIBUCION EDAD DE LA CASA------------------------")
+bins = [2, 4, 6, 8, 10]
+nombres = ['2-4', '4-6', '6-8', '8-10']
+temp = f2
+df1 = temp['Edad Casa Media'] = pd.cut(temp['Edad Casa Media'], bins, labels = nombres)
+print(df1)
+df2 = f2.groupby('Edad Casa Media').mean()
+df3= f2.groupby('Edad Casa Media').count()
+print(df2)
+print(df3)
+
+print("--------------------MATRIZ DE CORRELACIONES--------------------")
+print("Con la matriz de correlaciones podemos ver si las variables elegidas depender una de la otra")
+print("He escogido las variables que, a mi parecer, tienen mas relevancia, que son: la ganancia, la antigüedad, el numero de habitaciones y el precio.")
+f_corre = f3
+#eliminamos las columnas que estorban
+f_corre.pop("Num HabitCama Medio")
+f_corre.pop("Poblacion en Area")
+f_corre.pop("Direccion")
+print(f_corre.corr())
+print("Cuanto mas se acerque el 1 el valor de correlacion, mas relacionadas estan las variables.")
+print("Observamos que el precio de la casa esta muy relacionado con el salario, algo bastante intuitivo, con una correlacion de 0.6")
+print("Tambien se puede ver que el precio de la casa correlaciona, aunque no mucho, del numero de habitaciones que tenga. Esto tiene una relacion de 0.3")
+print("El ultimo dato interesante es que el precio esta bastante relacionado con la edad de la vivienda, con una correlacion de 0.4")
+print("El resto de datos son negativos, muy cercanos al 0, lo que indican que no tienen correlacion ninguna.")
