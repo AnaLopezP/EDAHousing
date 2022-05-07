@@ -57,6 +57,7 @@ print(a)
 ejex = f2["Precio"]
 ejey = bins
 plt.hist(ejex, ejey)
+plt.show()
 plt.savefig("distribucion_precios.png")
 print("Puede ver la grafcia en 'distribucion_precios.png'")
 print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
@@ -90,6 +91,7 @@ print(d)
 
 plt.bar(d["Codigo"], d["media_precio"])
 plt.show()
+plt.savefig("Precios_distrito.png")
 print("Con esta grafica he intentado averiguar si el precio de la casa varia por zonas. Es decir, si hay un barrio mas caro que otro, etc.")
 print("Sin embargo, se observa que las viviendas tienden al mismo precio, variando poco, y no hay una diferencia clara por distritos.")
 print("Esto quiere decir que no hay un aglomeramiento de distintas clases sociales por barrio, sino que estan todos mezclados, siendo la mayoría de clase media.")
