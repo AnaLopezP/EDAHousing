@@ -13,3 +13,5 @@ f2 = funciones.traduccion(f, traducido)
 print("\n")
 print("voy a exportar el dataframe a un excel. De esta manera vere mas facil e intuitivamente la tabla.")
 funciones.f2.to_excel("Housing_traducido.xlsx")
+
+print("Voy a hacer distintas graficas con las variables iniciales")
