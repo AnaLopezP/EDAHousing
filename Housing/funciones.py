@@ -68,3 +68,7 @@ print(f2.tail())
 b = f2.groupby("Codigo").agg(frecuencia = ("Codigo", "count"))
 print(b)
 
+'''c = f2.groupby("Codigo").get_group("00")
+print(c)'''
+d = f2.groupby("Codigo").agg(media_precio = ("Precio", "mean"))
+print(d)
