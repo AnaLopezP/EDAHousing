@@ -32,11 +32,24 @@ print(f2.describe())
 
 print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
 print("Hemos separado por rangos el salario para ver las frecuencias y su distribucion.")
-bins = range(20000, 120000, 10000)
+bins = range(20000, 120000, 5000)
 f2["Ganancias Rangos"] = pd.cut(f2["Ganancia Media"], bins)
-a = f2.groupby("Ganancias Rangos").agg(frequencia = ("Ganancia Media", "count"))
+a = f2.groupby("Ganancias Rangos").agg(frecuencia = ("Ganancia Media", "count"))
 print(a)
-
-plt.plot(a)
+ejex = f2["Ganancia Media"]
+ejey = bins
+plt.hist(ejex, ejey)
 plt.show()
+print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
 
+print("--------------------------- DISTRIBUCION DE PRECIOS ------------------------")
+print("Hemos separado por rangos el precio para ver las frecuencias y su distribucion.")
+bins = range(20000, 120000, 5000)
+f2["Rango Precios"] = pd.cut(f2["Precio"], bins = 20)
+a = f2.groupby("Rango Precios").agg(frecuencia = ("Precio", "count"))
+print(a)
+ejex = f2["Precio"]
+ejey = bins
+plt.hist(ejex, ejey)
+plt.show()
+print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
