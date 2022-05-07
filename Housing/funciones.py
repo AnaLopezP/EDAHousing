@@ -30,12 +30,12 @@ f2.to_excel("Housing_traducido.xlsx")'''
 print("Primero voy a hacer una descripcion general de los datos")
 print(f2.describe())
 
-print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
+'''print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
 print("Hemos separado por rangos el salario para ver las frecuencias y su distribucion.")
 bins = range(20000, 120000, 5000)
 f2["Ganancias Rangos"] = pd.cut(f2["Ganancia Media"], bins)
 a = f2.groupby("Ganancias Rangos").agg(frecuencia = ("Ganancia Media", "count"))
-print(a)
+print(a)           
 ejex = f2["Ganancia Media"]
 ejey = bins
 plt.hist(ejex, ejey)
@@ -53,3 +53,18 @@ ejey = bins
 plt.hist(ejex, ejey)
 plt.show()
 print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
+print('\n')
+print("Voy a clasificar las calles por distrito, usando el codigo inicial de cada una.")'''
+codigos = []
+for i in range(len(f2.index)):
+    cad = str(f2.iloc[i, 6])
+    cad = cad.strip()
+    codigos.append(str(cad)[0:2])
+    
+f2["Codigo"] = codigos
+print(f2.head())
+print(f2.tail())
+    
+b = f2.groupby("Codigo").agg(frecuencia = ("Codigo", "count"))
+print(b)
+
