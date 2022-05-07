@@ -1,4 +1,3 @@
-import matplotlib
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
@@ -25,15 +24,19 @@ print('\n')
 traducido =  {'Avg. Area Income': 'Ganancia Media','Avg. Area House Age':'Edad Casa Media', 'Avg. Area Number of Rooms':'Num Habitaciones Medio', 'Avg. Area Number of Bedrooms': 'Num HabitCama Medio', 'Area Population': 'Poblacion en Area', 'Price':'Precio', 'Address':'Direccion'}
 f2 = traduccion(f, traducido)
 print("\n")
-print("voy a exportar el dataframe a un excel. De esta manera vere mas facil e intuitivamente la tabla.")
-f2.to_excel("Housing_traducido.xlsx")
+'''print("voy a exportar el dataframe a un excel. De esta manera vere mas facil e intuitivamente la tabla.")
+f2.to_excel("Housing_traducido.xlsx")'''
 
-print("Voy a hacer distintas graficas con las variables iniciales")
-print("1) histograma de la ganancia")
-fig = plt.figure()
-ejex = [0, 10000, 20000, 300000, 400000, 500000, 600000, 700000]
-ejey = [0, 50, 100, 150, 200, 250, 300, 350, 400]
+print("Primero voy a hacer una descripcion general de los datos")
+print(f2.describe())
 
-plt.hist(ejex, ejey, color = "b")
-plt.savefig("Histograma Ganancias.jpg")
+print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
+print("Hemos separado por rangos el salario para ver las frecuencias y su distribucion.")
+bins = range(20000, 120000, 10000)
+f2["Ganancias Rangos"] = pd.cut(f2["Ganancia Media"], bins)
+a = f2.groupby("Ganancias Rangos").agg(frequencia = ("Ganancia Media", "count"))
+print(a)
+
+plt.plot(a)
 plt.show()
+
