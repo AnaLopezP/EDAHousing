@@ -31,7 +31,7 @@ print("Primero voy a hacer una descripcion general de los datos")
 print(f2.describe())
 print("En estos datos podemos destacar dos cosas:")
 print("1) las medias, en general, se acercan mucho al percentil 50, por lo que podemos suponer que la mayoria de los datos son cercanos a la media. Comprobare esto con las frecuencias")
-print("2) Con el maximo y el minimo se observa que hay algunos valores aberrantes, sobre todo en el numero de habitaciones, en la ganancia y en la antigüedad. Estos valores no los tendremos en cuenta para futuros analisis.")
+print("2) Con el maximo y el minimo se observa que hay algunos valores de distorsión, sobre todo en el numero de habitaciones, en la ganancia y en la antigüedad. Estos valores se descartan para futuros analisis.")
 print('\n')
 
 print("--------------------------- DISTRIBUCION DE SALARIOS ------------------------")
@@ -46,8 +46,8 @@ plt.hist(ejex, ejey)
 plt.savefig("distribucion_ganancias.png")
 plt.show()
 print("Puede ver la grafica en 'distribucion_ganancias.png'")
-print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
-print("Esto quiere decir, tal y como suponiamos, que la mayoria de las ganancias son cercanas a la media, lo que conlleva que la mayoria de gente es de clase media.")
+print("Como se puede ver en la grafica, se ajusta a una distribucion normal, pero picuda, lo que quiere decir que el rango de valores es estrecho. Estan todos muy cerca de la media.")
+
 
 print("--------------------------- DISTRIBUCION DE PRECIOS ------------------------")
 print("Hemos separado por rangos el precio para ver las frecuencias y su distribucion.")
@@ -60,7 +60,7 @@ ejey = bins
 plt.hist(ejex, ejey)
 plt.savefig("distribucion_precios.png")
 plt.show()
-print("Puede ver la grafcia en 'distribucion_precios.png'")
+print("Puede ver la grafica en 'distribucion_precios.png'")
 print("Como se puede ver en la grafica, se ajusta a una distribucion normal.")
 print("Esto quiere decir que no hay una diferencia de precios notable. Es decir, no hay casas muy baratas y muy caras, sino que la mayoria tienden a la media.")
 print("Esto tiene sentido si lo juntamos con la distribucion de salario, ya que la mayoria de gente ser de clase media, y los precios tienen que ajustarse a las personas, los precios serán tambien medios.")
@@ -89,11 +89,19 @@ d.insert(loc = 0,column = "Codigo", value = serie)
 
 print(d)
 
+max = d[['media_precio']].max()
+print(max)
+min = d[['media_precio']].min()
+print(min)
+diff = max-min
+mediaprecios = d[['media_precio']].mean()
+
 plt.bar(d["Codigo"], d["media_precio"])
 plt.savefig("Precios_distrito.png")
 plt.show()
 print("Con esta grafica he intentado averiguar si el precio de la casa varia por zonas. Es decir, si hay un barrio mas caro que otro, etc.")
 print("Sin embargo, se observa que las viviendas tienden al mismo precio, variando poco, y no hay una diferencia clara por distritos.")
+print("La diferencia entre el precio max y el min es de " + str(diff) + ", que es un porcentaje de " + str((diff/mediaprecios)*100))
 print("Esto quiere decir que no hay un aglomeramiento de distintas clases sociales por barrio, sino que estan todos mezclados, siendo la mayoría de clase media.")
 
 
@@ -109,16 +117,16 @@ print("Lo mas destacable es que hay menos poblacion en las areas con casas mas a
 
 
 print("--------------------MATRIZ DE CORRELACIONES--------------------")
-print("Con la matriz de correlaciones podemos ver si las variables elegidas depender una de la otra")
+print("Con la matriz de correlaciones podemos ver si las variables elegidas varian de manera coordinada")
 print("He escogido las variables que, a mi parecer, tienen mas relevancia, que son: la ganancia, la antigüedad, el numero de habitaciones y el precio.")
 f_corre = f3
 #eliminamos las columnas que estorban
 f_corre.pop("Num HabitCama Medio")
-f_corre.pop("Poblacion en Area")
+#f_corre.pop("Poblacion en Area")
 f_corre.pop("Direccion")
 print(f_corre.corr())
-print("Cuanto mas se acerque el 1 el valor de correlacion, mas relacionadas estan las variables.")
+print("Cuanto mas se acerque el 1 o -1 el valor de correlacion, mas relacionadas estan las variables.")
 print("Observamos que el precio de la casa esta muy relacionado con el salario, algo bastante intuitivo, con una correlacion de 0.6")
 print("Tambien se puede ver que el precio de la casa correlaciona, aunque no mucho, del numero de habitaciones que tenga. Esto tiene una relacion de 0.3")
-print("El ultimo dato interesante es que el precio esta bastante relacionado con la edad de la vivienda, con una correlacion de 0.4")
-print("El resto de datos son negativos, muy cercanos al 0, lo que indican que no tienen correlacion ninguna.")
+print("El ultimo dato interesante es que el precio esta algo relacionado con la edad de la vivienda, con una correlacion de 0.4")
+print("El resto de datos muy cercanos al 0, lo que indican que no tienen correlacion ninguna.")
