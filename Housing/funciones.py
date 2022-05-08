@@ -113,7 +113,6 @@ temp = f2
 df1 = temp['Edad Casa Media'] = pd.cut(temp['Edad Casa Media'], bins, labels = nombres)
 df2 = f2.groupby('Edad Casa Media').mean()
 print(df2)
-print("Lo mas destacable es que hay menos poblacion en las areas con casas mas antiguas. El resto de valores no varian apenas, por lo que no podemos establecer una relacion.")
 
 
 print("--------------------MATRIZ DE CORRELACIONES--------------------")
@@ -128,5 +127,6 @@ print(f_corre.corr())
 print("Cuanto mas se acerque el 1 o -1 el valor de correlacion, mas relacionadas estan las variables.")
 print("Observamos que el precio de la casa esta muy relacionado con el salario, algo bastante intuitivo, con una correlacion de 0.6")
 print("Tambien se puede ver que el precio de la casa correlaciona, aunque no mucho, del numero de habitaciones que tenga. Esto tiene una relacion de 0.3")
+print("La poblacion en area y el precio de la vivienda tiene una correlacion de 0.4")
 print("El ultimo dato interesante es que el precio esta algo relacionado con la edad de la vivienda, con una correlacion de 0.4")
 print("El resto de datos muy cercanos al 0, lo que indican que no tienen correlacion ninguna.")
